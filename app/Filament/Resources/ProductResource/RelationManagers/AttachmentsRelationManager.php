@@ -15,6 +15,8 @@ class AttachmentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'attachments';
 
+    protected static ?string $title = 'Attachment';
+
     public function form(Form $form): Form
     {
         return $form
@@ -41,6 +43,7 @@ class AttachmentsRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('name')
+            ->heading('List')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->action(fn($record) => null)
@@ -50,7 +53,8 @@ class AttachmentsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->label('New'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

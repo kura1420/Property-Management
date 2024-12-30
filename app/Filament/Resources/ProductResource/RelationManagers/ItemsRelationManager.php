@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
+
+    protected static ?string $title = 'Item';
 
     public function form(Form $form): Form
     {
@@ -38,7 +41,9 @@ class ItemsRelationManager extends RelationManager
                             ->required()
                             ->numeric()
                             ->default(0)
-                            ->prefix('Rp'),
+                            ->prefix('Rp')
+                            ->mask(RawJs::make('$money($input)'))
+                            ->stripCharacters(','),
 
                         Forms\Components\Select::make('status')
                             ->options([
@@ -71,6 +76,7 @@ class ItemsRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('code')
+            ->heading('List')
             ->columns([
                 Tables\Columns\TextColumn::make('code'),
 
@@ -89,7 +95,8 @@ class ItemsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->label('New'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

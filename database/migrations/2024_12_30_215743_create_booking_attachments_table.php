@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('booking_attachments', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->char('code', 10);
+            $table->foreignUlid('booking_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
-            $table->string('city');
-            $table->text('address');
-            $table->text('map')->nullable();
-            $table->integer('quantity', false, false)->default(0);
-            $table->boolean('status')->default(false);
-            $table->text('description')->nullable();
+            $table->string('file');
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('booking_attachments');
     }
 };

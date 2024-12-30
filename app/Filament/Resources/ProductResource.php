@@ -24,6 +24,8 @@ class ProductResource extends Resource
 
     protected static ?string $breadcrumb = 'Product';
 
+    protected static ?string $navigationGroup = 'Database';
+
     public static function form(Form $form): Form
     {
         return $form

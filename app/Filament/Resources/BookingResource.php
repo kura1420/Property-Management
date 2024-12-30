@@ -2,28 +2,30 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReportResource\Pages;
-use App\Filament\Resources\ReportResource\RelationManagers;
-use App\Models\Report;
+use App\Filament\Resources\BookingResource\Pages;
+use App\Filament\Resources\BookingResource\RelationManagers;
+use App\Models\Booking;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 
-class ReportResource extends Resource
+class BookingResource extends Resource
 {
-    protected static ?string $model = Report::class;
+    protected static ?string $model = Booking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
 
-    protected static ?string $navigationLabel = 'Report';
+    protected static ?string $navigationLabel = 'Booking';
 
-    protected static ?string $breadcrumb = 'Report';
+    protected static ?string $breadcrumb = 'Booking';
 
     public static function form(Form $form): Form
     {
@@ -43,7 +45,7 @@ class ReportResource extends Resource
                             ->where('product_id', $get('product_id'))
                             ->pluck('name', 'id')
                     )
-                    ->nullable(),
+                    ->required(),
 
                 Forms\Components\Select::make('customer_id')
                     ->label('Customer')
@@ -51,19 +53,39 @@ class ReportResource extends Resource
                     ->searchable()
                     ->required(),
 
-                Forms\Components\Select::make('status')
-                    ->options([
-                        0 => 'Waiting',
-                        1 => 'Done',
-                        2 => 'Process',
-                        3 => 'Hold',
-                        4 => 'Cancel',
-                        5 => 'Reject',
-                    ])
+                Forms\Components\Select::make('user_id')
+                    ->label('Agent')
+                    ->options(\App\Models\User::orderBy('name', 'asc')->get()->pluck('name', 'id'))
                     ->required(),
 
-                Forms\Components\RichEditor::make('description')
-                    ->required()
+                Grid::make(3)
+                    ->schema([
+                        Forms\Components\Select::make('status')
+                            ->options([
+                                0 => 'Waiting',
+                                1 => 'Done',
+                                2 => 'Process',
+                                3 => 'Hold',
+                                4 => 'Cancel',
+                                5 => 'Reject',
+                            ])
+                            ->required(),
+
+                        Forms\Components\DatePicker::make('date')
+                            ->required(),
+
+                        Forms\Components\TextInput::make('down_payment')
+                            ->required()
+                            ->numeric()
+                            ->numeric()
+                            ->default(0)
+                            ->prefix('Rp')
+                            ->mask(RawJs::make('$money($input)'))
+                            ->stripCharacters(','),
+                    ]),
+
+                Forms\Components\RichEditor::make('notes')
+                    ->nullable()
                     ->columnSpanFull(),
             ]);
     }
@@ -73,18 +95,18 @@ class ReportResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
-                    ->label('Product')
                     ->searchable(),
-
+                Tables\Columns\TextColumn::make('productItem.name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('customer.fullname')
-                    ->label('Customer')
                     ->searchable(),
-
                 Tables\Columns\TextColumn::make('user.name')
-                    ->sortable(),
-
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('status')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('date')
+                    ->date()
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -104,15 +126,16 @@ class ReportResource extends Resource
         return [
             //
             RelationManagers\AttachmentsRelationManager::class,
+            RelationManagers\BonusesRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListReports::route('/'),
-            'create' => Pages\CreateReport::route('/create'),
-            'edit' => Pages\EditReport::route('/{record}/edit'),
+            'index' => Pages\ListBookings::route('/'),
+            'create' => Pages\CreateBooking::route('/create'),
+            'edit' => Pages\EditBooking::route('/{record}/edit'),
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AttributeResource\Pages;
-use App\Filament\Resources\AttributeResource\RelationManagers;
-use App\Models\Attribute;
+use App\Filament\Resources\BonusResource\Pages;
+use App\Filament\Resources\BonusResource\RelationManagers;
+use App\Models\Bonus;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AttributeResource extends Resource
+class BonusResource extends Resource
 {
-    protected static ?string $model = Attribute::class;
+    protected static ?string $model = Bonus::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cube-transparent';
+    protected static ?string $navigationIcon = 'heroicon-o-swatch';
 
-    protected static ?string $navigationLabel = 'Attribute';
+    protected static ?string $navigationLabel = 'Bonus';
 
-    protected static ?string $breadcrumb = 'Attribute';
+    protected static ?string $breadcrumb = 'Bonus';
 
     protected static ?string $navigationGroup = 'Master';
 
@@ -31,6 +31,7 @@ class AttributeResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
             ]);
     }
@@ -59,7 +60,7 @@ class AttributeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageAttributes::route('/'),
+            'index' => Pages\ManageBonuses::route('/'),
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AttributeResource\Pages;
-use App\Filament\Resources\AttributeResource\RelationManagers;
-use App\Models\Attribute;
+use App\Filament\Resources\TypeBuyerResource\Pages;
+use App\Filament\Resources\TypeBuyerResource\RelationManagers;
+use App\Models\TypeBuyer;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AttributeResource extends Resource
+class TypeBuyerResource extends Resource
 {
-    protected static ?string $model = Attribute::class;
+    protected static ?string $model = TypeBuyer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cube-transparent';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static ?string $navigationLabel = 'Attribute';
+    protected static ?string $navigationLabel = 'Type Buyer';
 
-    protected static ?string $breadcrumb = 'Attribute';
+    protected static ?string $breadcrumb = 'Type Buyer';
 
     protected static ?string $navigationGroup = 'Master';
 
@@ -31,7 +31,11 @@ class AttributeResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
+
+                Forms\Components\Textarea::make('descr')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -47,7 +51,6 @@ class AttributeResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -56,10 +59,20 @@ class AttributeResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+            RelationManagers\RemindsRelationManager::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageAttributes::route('/'),
+            'index' => Pages\ListTypeBuyers::route('/'),
+            'create' => Pages\CreateTypeBuyer::route('/create'),
+            'edit' => Pages\EditTypeBuyer::route('/{record}/edit'),
         ];
     }
 }

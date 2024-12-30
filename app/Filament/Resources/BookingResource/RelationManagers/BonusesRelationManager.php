@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ProductResource\RelationManagers;
+namespace App\Filament\Resources\BookingResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,22 +11,22 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AttributesRelationManager extends RelationManager
+class BonusesRelationManager extends RelationManager
 {
-    protected static string $relationship = 'attributes';
+    protected static string $relationship = 'bonuses';
 
-    protected static ?string $title = 'Attribute';
+    protected static ?string $title = 'Bonus';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('attribute_id')
-                    ->label('Attribute')
-                    ->columnSpanFull()
-                    ->options(\App\Models\Attribute::orderBy('name', 'asc')->get()->pluck('name', 'id'))
-                    ->searchable()
+                Forms\Components\Select::make('bonus_id')
+                    ->label('Bonus')
+                    ->options(\App\Models\Bonus::orderBy('name', 'asc')->get()->pluck('name', 'id'))
                     ->multiple()
+                    ->searchable()
+                    ->columnSpanFull()
                     ->required(),
             ]);
     }
@@ -34,11 +34,10 @@ class AttributesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('attribute_id')
+            ->recordTitleAttribute('bonus_id')
             ->heading('List')
             ->columns([
-                Tables\Columns\TextColumn::make('attribute.name')
-                    ->label('Name'),
+                Tables\Columns\TextColumn::make('bonus.name'),
             ])
             ->filters([
                 //
@@ -49,20 +48,19 @@ class AttributesRelationManager extends RelationManager
                     ->using(function (array $data, string $model): Model {
                         $m = null;
 
-                        foreach ($data['attribute_id'] as $d) {
+                        foreach ($data['bonus_id'] as $d) {
                             $m = $model::create([
-                                'product_id' => $this->getOwnerRecord()->getKey(),
-                                'attribute_id' => $d,
+                                'booking_id' => $this->getOwnerRecord()->getKey(),
+                                'bonus_id' => $d,
                             ]);
                         }
 
                         return $m;
-                    })
+                    }),
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
-                    ->modalHeading('Delete attribute'),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

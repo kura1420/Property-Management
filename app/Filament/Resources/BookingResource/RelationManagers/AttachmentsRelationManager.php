@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ReportResource\RelationManagers;
+namespace App\Filament\Resources\BookingResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,7 +27,7 @@ class AttachmentsRelationManager extends RelationManager
                     ->maxLength(255),
 
                 Forms\Components\FileUpload::make('file')
-                    ->directory('product/attachment')
+                    ->directory('booking/attachment')
                     ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
                     ->maxSize(2048)
                     ->openable()
