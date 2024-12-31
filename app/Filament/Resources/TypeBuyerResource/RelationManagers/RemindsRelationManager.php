@@ -19,8 +19,16 @@ class RemindsRelationManager extends RelationManager
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('type')
+                    ->options([
+                        'D' => 'Day',
+                        'W' => 'Week',
+                        // 'M' => 'Month',
+                        // 'Y' => 'Year',
+                    ]),
+
                 Forms\Components\TextInput::make('remind')
-                    ->label('Remind H+')
+                    ->label('Remind')
                     ->numeric()
                     ->required(),
 

@@ -16,7 +16,11 @@ class RemindBuyer extends Model
     protected function remindHPlus(): Attribute
     {
         return Attribute::make(
-            get: fn(mixed $value, array $attr) => 'H+' . $attr['remind'],
+            get: fn(mixed $value, array $attr) => match ($attr['type']) {
+                'D' => 'H+' . $attr['remind'],
+                'W' => $attr['remind'] . ' Week',
+                default => 'No Defined'
+            },
         );
     }
 
