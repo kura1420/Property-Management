@@ -19,14 +19,10 @@ class RemindsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('seq')
-                    ->label('Sequence')
+                Forms\Components\TextInput::make('remind')
+                    ->label('Remind H+')
                     ->numeric()
                     ->required(),
-
-                Forms\Components\TextInput::make('step')
-                    ->required()
-                    ->maxLength(255),
 
                 Forms\Components\Textarea::make('descr')
                     ->columnSpanFull(),
@@ -38,14 +34,8 @@ class RemindsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('step')
             ->columns([
-                Tables\Columns\TextColumn::make('seq')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('step')
+                Tables\Columns\TextColumn::make('remindHPlus')
                     ->description(fn(RemindBuyer $record): string => $record->descr),
-
-                // Tables\Columns\TextColumn::make('descr')
-                //     ->description(fn(Post $record): string => $record->description),
             ])
             ->filters([
                 //
