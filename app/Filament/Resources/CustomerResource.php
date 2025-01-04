@@ -115,9 +115,12 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('fullname')
+                Tables\Columns\TextColumn::make('typeBuyer.name')
+                    ->label('Type Buyer')
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('fullname')
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('handphone_1')
                     ->action(fn($record) => null)
@@ -126,7 +129,7 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('handphone_2')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('first_res_date'),
             ])
             ->filters([
                 //

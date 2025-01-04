@@ -8,7 +8,9 @@
     "require": {
         "php": "^8.2",
         "althinect/filament-spatie-roles-permissions": "^2.2",
+        "calebporzio/sushi": "*",
         "filament/filament": "^3.2",
+        "irazasyed/telegram-bot-sdk": "^3.14",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9"
     },

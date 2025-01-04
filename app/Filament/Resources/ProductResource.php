@@ -83,11 +83,11 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('city')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('quantity')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('quantity')
+                //     ->numeric()
+                //     ->sortable(),
 
-                Tables\Columns\TextColumn::make('status'),
+                // Tables\Columns\TextColumn::make('status'),
             ])
             ->filters([
                 //

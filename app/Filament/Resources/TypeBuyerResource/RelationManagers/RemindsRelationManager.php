@@ -41,15 +41,18 @@ class RemindsRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('step')
+            ->heading('List')
             ->columns([
                 Tables\Columns\TextColumn::make('remindHPlus')
+                    ->label('Remind')
                     ->description(fn(RemindBuyer $record): string => $record->descr),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->label('New'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

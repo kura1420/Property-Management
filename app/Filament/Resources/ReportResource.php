@@ -83,8 +83,11 @@ class ReportResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->sortable(),
 
-                Tables\Columns\IconColumn::make('status')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->sortable(),
+
+                // Tables\Columns\IconColumn::make('status')
+                //     ->boolean(),
             ])
             ->filters([
                 //

@@ -11,4 +11,10 @@ class Customer extends Model
     use HasUlids;
 
     public $incrementing = false;
+
+    public function typeBuyer()
+    {
+        return $this->belongsTo(TypeBuyer::class)
+            ->withDefault(['name' => '???']);
+    }
 }

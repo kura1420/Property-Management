@@ -1,0 +1,11 @@
+<x-filament-panels::page>
+    <div>
+        @livewire(\App\Filament\Widgets\FollowTodayOverview::class)
+    </div>
+    <div>
+        @livewire(\App\Filament\Widgets\FollowupToday::class)
+    </div>
+    <div>
+        @livewire(\App\Filament\Widgets\LateFollowup::class)
+    </div>
+</x-filament-panels::page>
