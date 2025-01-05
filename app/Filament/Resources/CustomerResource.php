@@ -129,7 +129,8 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('handphone_2')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('first_res_date'),
+                Tables\Columns\TextColumn::make('first_res_date')
+                    ->date(),
             ])
             ->filters([
                 //

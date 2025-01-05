@@ -24,11 +24,13 @@ Berikut daftar buyer yang harus di followup hari ini:
             $message .= $loop . ". " . $buyer['fullname'] . " ( " . $buyer['handphone_1'] . $handphone_2 .  " )\n";
         }
 
-        Telegram::sendMessage([
-            'chat_id' => env('TELEGRAM_CHAT_TO'),
-            'parse_mode' => 'markdown',
-            'text' => $message
-        ]);
+        if (count($buyers) > 0) {
+            Telegram::sendMessage([
+                'chat_id' => env('TELEGRAM_CHAT_TO'),
+                'parse_mode' => 'markdown',
+                'text' => $message
+            ]);
+        }
     }
 
     public static function lateFollow(): void
@@ -49,10 +51,12 @@ Berikut daftar buyer yang belum di followup sampai hari ini:
             $message .= $loop . ". " . $bt['fullname'] . " ( " . $bt['handphone_1'] . $handphone_2 .  " ), last follow: " . $bt['date'] . "\n";
         }
 
-        Telegram::sendMessage([
-            'chat_id' => env('TELEGRAM_CHAT_TO'),
-            'parse_mode' => 'markdown',
-            'text' => $message
-        ]);
+        if (count($buyers) > 0) {
+            Telegram::sendMessage([
+                'chat_id' => env('TELEGRAM_CHAT_TO'),
+                'parse_mode' => 'markdown',
+                'text' => $message
+            ]);
+        }
     }
 }

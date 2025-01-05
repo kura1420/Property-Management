@@ -15,6 +15,7 @@ class LateFollowup extends BaseWidget
     {
         return $table
             ->query(SushiLateFollowup::query())
+            ->emptyStateHeading('List is empty')
             ->columns([
                 TextColumn::make('role')
                     ->sortable(),
@@ -29,7 +30,9 @@ class LateFollowup extends BaseWidget
                 TextColumn::make('handphone_2')
                     ->searchable(),
 
-                TextColumn::make('date'),
+                TextColumn::make('date')
+                    ->label('Last Followup')
+                    ->date(),
             ]);
     }
 }

@@ -84,6 +84,7 @@ class ReportResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
                     ->sortable(),
 
                 // Tables\Columns\IconColumn::make('status')

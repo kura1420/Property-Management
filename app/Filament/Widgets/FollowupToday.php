@@ -15,6 +15,7 @@ class FollowupToday extends BaseWidget
     {
         return $table
             ->query(SushiFollowupToday::query())
+            ->emptyStateHeading('List is empty')
             ->columns([
                 TextColumn::make('role')
                     ->sortable(),
