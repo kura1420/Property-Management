@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::call(NotifFollowupCommand::class)->dailyAt('07:00');
+Schedule::command(NotifFollowupCommand::class)->dailyAt('07:00');
