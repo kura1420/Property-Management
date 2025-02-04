@@ -86,13 +86,9 @@ Kontribusi sangat diterima! Jika Anda memiliki saran, laporan bug, atau perminta
    ```
 5. **Ajukan pull request**.
 
-## Lisensi
-
-Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](LICENSE) untuk detailnya.
-
 ## Kontak
 
-Jika Anda memiliki pertanyaan atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi saya di [a.syakur14@gmail.com](mailto:a.syakur14@gmail.com).
+Jika Anda memiliki pertanyaan atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi saya di [a.syakur14@gmail.com](mailto:a.syakur14@gmail.com) .
 
 ---
 
